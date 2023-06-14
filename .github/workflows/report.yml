@@ -10,6 +10,12 @@ jobs:
   checks:
     runs-on: ubuntu-latest
     steps:
+      - name: Download Report
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          name: junit-test-results
+          workflow: ${{ github.event.workflow.id }}
+          run_id: ${{ github.event.workflow_run.id }}
       - name: Report
         uses: dorny/test-reporter@v1
         with:
