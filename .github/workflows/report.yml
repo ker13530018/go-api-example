@@ -1,0 +1,19 @@
+name: 'report'
+on:
+  workflow_run:
+    workflows: [ 'Go' ]
+    types:
+      - completed
+permissions:
+  checks: write
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Report
+        uses: dorny/test-reporter@v1
+        with:
+          artifact: go-unit-test-report
+          name: Go Tests
+          path: '*.xml'
+          reporter: jest-junit
