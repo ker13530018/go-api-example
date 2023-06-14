@@ -26,3 +26,10 @@ jobs:
 
     - name: Test
       run:  go install gotest.tools/gotestsum@latest && gotestsum --junitfile metadata-service-tests.xml -- ./...
+    - name: Upload
+      uses: actions/upload-artifact@v3
+      if: success() || failure()
+      with: 
+        name: go-unit-test-report
+        path: '*-tests.xml'
+        retention-days: 1
